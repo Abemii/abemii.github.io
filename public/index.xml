@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>我的...</title>
+    <link>https://example.com/</link>
+    <description>Recent content on 我的...</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 01 Jan 2022 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>はてなブログからHugoに移行した</title>
+      <link>https://example.com/posts/initial_post/</link>
+      <pubDate>Sat, 05 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/posts/initial_post/</guid>
+      <description>はてなブログから Hugo で作成したこちらのサイトにブログを移行しました。
+また、以下の記事をはてなブログから転載しました。
+ Is the order a partial formatter for python?</description>
+    </item>
+    
+    <item>
+      <title>Is the order a partial formatter for python?</title>
+      <link>https://example.com/posts/black-macchiato/</link>
+      <pubDate>Mon, 24 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/posts/black-macchiato/</guid>
+      <description>Python コードはブラックであるべきだ、そうコーヒーのように。 しかしときたま、ある人が不可解な理由でミルクを入れるように言ってくることがある。 カフェラテは飲めないから、結局妥協してカフェマキアートに落ち着くのだ。
+ (black-macchiato README より引用、邦訳。)
+Black is awesome Python のフォーマッタとしては、以下の3つのツールが人気らしい。1</description>
+    </item>
+    
+    <item>
+      <title>Is the order a well-managed CocInstall?</title>
+      <link>https://example.com/posts/cocinstall/</link>
+      <pubDate>Sun, 16 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/posts/cocinstall/</guid>
+      <description>導入 coc.nvim の拡張を管理する方法について。
+自分は、Neovim の設定をすべて dotfiles レポジトリで管理している。 そのため、新しく環境構築をする必要がある場合、
+./setup.sh を実行するだけですべてがインストールされる。</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://example.com/about/</link>
+      <pubDate>Sat, 01 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/about/</guid>
+      <description>im im といいます。以下のものに興味があります。
+I&amp;rsquo;m im. I am interested in the following things:</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://example.com/archives/</link>
+      <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/archives/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,6 +1,6 @@
 baseURL = "https://example.com"
 languageCode = "en-us"
-title = "Noteworthy"
+title = "我的..."
 theme = "noteworthy"
 enableRobotsTXT = true
 paginate = 4 # Set the number of posts to show before overflowing to the next page.
@@ -16,7 +16,7 @@ disqusShortname = ""
   tag = "tags"
 
 [author]
-    name = "kimcc"
+    name = "im"
 
 # Set to false to disallow raw HTML in markdown files
 [markup.goldmark.renderer]
@@ -25,7 +25,7 @@ disqusShortname = ""
 [params]
     math = true
     # Blog description at the top of the homepage. Supports markdown.
-    description = "Noteworthy is a minimalist Hugo theme, perfect for writers and bloggers."
+    description = "my note"
 
     showReadMore = false
 
@@ -35,47 +35,47 @@ disqusShortname = ""
 
     # Add links to your accounts. Remove the ones you don't want to include.
     # Main
-    email = "#"
-    facebook = "#"
-    twitter = "#"
-    instagram = "#"
-    tumblr = "#"
-    reddit = "#"
-    pinterest = "#"
-    youtube = "#"
-    vimeo = "#"
-    weibo = "#"
-    vk = "#"
-    linkedin = "#"
+    # email = "#"
+    # facebook = "#"
+    twitter = "https://twitter.com/abemii_"
+    # instagram = "#"
+    # tumblr = "#"
+    # reddit = "#"
+    # pinterest = "#"
+    # youtube = "#"
+    # vimeo = "#"
+    # weibo = "#"
+    # vk = "#"
+    # linkedin = "#"
 
     # Writing
-    medium = "#"
-    blogger = "#"
-    wordpress = "#"
+    # medium = "#"
+    # blogger = "#"
+    # wordpress = "#"
 
     # Creative & Visual
-    dribbble = "#"
-    behance = "#"
-    deviantart = "#"
-    flickr = "#"
+    # dribbble = "#"
+    # behance = "#"
+    # deviantart = "#"
+    # flickr = "#"
 
     # Audio & Music
-    soundcloud = "#"
+    # soundcloud = "#"
 
     # Programming
-    github = "#"
-    stackoverflow = "#"
-    gitlab = "#"
-    codepen = "#"
+    github = "https://github.com/Abemii/"
+    # stackoverflow = "#"
+    # gitlab = "#"
+    # codepen = "#"
 
     # Academic
-    googlescholar = "#"
-    impactstory = "#"
-    orcid = "#"
+    # googlescholar = "#"
+    # impactstory = "#"
+    # orcid = "#"
 
     # Travel
-    googlemaps = "#"
-    tripadvisor = "#"
+    # googlemaps = "#"
+    # tripadvisor = "#"
 
 # Menu links along the sidebar navigation.
 [[menu.main]]
@@ -118,4 +118,5 @@ disqusShortname = ""
   [privacy.youtube]
     disable = false
     privacyEnhanced = true
-themes = "noteworthy"
+publishDir = "docs"
+canonifyurls = true
