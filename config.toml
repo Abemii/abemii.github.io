@@ -9,7 +9,7 @@ publishDir = "docs"
 canonifyurls = true
 
 # Add your Google Analytics identifier: UA-XXXXXXXX-X
-googleAnalytics = ""
+googleAnalytics = "UA-220178174-1"
 
 # Add your Disqus shortname here.
 disqusShortname = ""
