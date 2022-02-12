@@ -3,8 +3,28 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://abemii.github.io/tags/feline.nvim/</loc>
+    <lastmod>2022-02-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://abemii.github.io/posts/feline.nvim/</loc>
+    <lastmod>2022-02-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://abemii.github.io/tags/neovim/</loc>
+    <lastmod>2022-02-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://abemii.github.io/posts/</loc>
-    <lastmod>2022-02-05T00:00:00+00:00</lastmod>
+    <lastmod>2022-02-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://abemii.github.io/tags/</loc>
+    <lastmod>2022-02-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -28,17 +48,7 @@
   </url>
   
   <url>
-    <loc>https://abemii.github.io/tags/neovim/</loc>
-    <lastmod>2022-01-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://abemii.github.io/tags/python/</loc>
-    <lastmod>2022-01-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://abemii.github.io/tags/</loc>
     <lastmod>2022-01-24T00:00:00+00:00</lastmod>
   </url>
   

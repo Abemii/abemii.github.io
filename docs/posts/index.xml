@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 我的...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 05 Feb 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 12 Feb 2022 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://abemii.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>feline.nvim: is the order a cool and fast status bar?</title>
+      <link>https://abemii.github.io/posts/feline.nvim/</link>
+      <pubDate>Sat, 12 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://abemii.github.io/posts/feline.nvim/</guid>
+      <description>序 私の Neovim は起動時間が長い。 180 ms もかかっていた。 1 秒もかかっていないので、気にするほどのことでもないのかもしれないが、 生の Neovim が 5ms 程度で起動することを考えると、速さを追い求めたくなってしまう。 速さにこそ本質がある。</description>
+    </item>
     
     <item>
       <title>はてなブログからHugoに移行した</title>
