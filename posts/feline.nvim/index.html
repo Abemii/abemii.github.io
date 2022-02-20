@@ -1,0 +1,237 @@
+<!doctype html><html lang=en-us>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=format-detection content="telephone=no">
+<title>feline.nvim: is the order a cool and fast status bar? | 我的...</title>
+<link rel=apple-touch-icon sizes=180x180 href=https://abemii.github.io/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=https://abemii.github.io/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=https://abemii.github.io/favicon-16x16.png>
+<link rel=manifest href=https://abemii.github.io/manifest.json>
+<link rel=mask-icon href=https://abemii.github.io/safari-pinned-tab.svg color=#ff3db4>
+<meta name=theme-color content="#ffffff">
+<link rel=stylesheet href=https://abemii.github.io/css/main.min.e34415025514319010e741089e6920454053855755ba465f66943ad102d2cb08.css>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-220178174-1','auto'),ga('set','anonymizeIp',!0),ga('send','pageview'))</script></head>
+<body>
+<nav>
+<header>
+<div class=site-title>
+<a href=https://abemii.github.io/>我的...</a>
+</div>
+</header>
+<div class=nav-menu>
+<a class="color-link nav-link" href=https://abemii.github.io/about/>About</a>
+<a class="color-link nav-link" href=https://abemii.github.io/tags/>Tags</a>
+<a class="color-link nav-link" href=https://abemii.github.io/archives/>Archives</a>
+<a class="color-link nav-link" href=https://abemii.github.io/index.xml target=_blank rel=noopener type=application/rss+xml>RSS</a>
+</div>
+<footer class=footer>
+<div class=social-icons>
+<a class=social-icon href=https://twitter.com/abemii_ target=_blank rel=noopener title=Twitter><svg width="28" height="28" viewBox="0 0 28 28" fill="#ababab" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><path d="M8.991284 24.971612c10.189152.0 15.761088-8.441388 15.761088-15.761088C24.752372 8.970656 24.747512 8.731868 24.736496 8.494376 25.818008 7.712564 26.758256 6.737 27.5 5.62622c-.992628.440856-2.060748.738072-3.181248.871992 1.14372-.685584 2.02176-1.770768 2.435832-3.064176-1.070496.6345-2.25558 1.095984-3.517344 1.344492-1.010772-1.076652-2.450412-1.75014-4.043412-1.75014-3.059424.0-5.540292 2.480868-5.540292 5.539104.0.434808.0487079999999995.857412.14364 1.26306C9.19346 9.599108 5.11106 7.39472 2.3792 4.04294c-.476172.818424-.750168 1.769688-.750168 2.784132.0 1.921968.97794 3.61854 2.464992 4.61106C3.185528 11.41016 2.331788 11.160464 1.585184 10.745096 1.583888 10.768208 1.583888 10.791428 1.583888 10.815728c0 2.683152 1.909764 4.922856 4.4442 5.43078C5.562932 16.373084 5.07326 16.44134 4.56782 16.44134 4.210988 16.44134 3.863876 16.406024 3.526484 16.34144c.70524 2.200824 2.750112 3.802356 5.174928 3.8475-1.896264 1.485756-4.284576 2.37114-6.879924 2.37114C1.374476 22.56008.93362 22.534592.5 22.4834c2.451708 1.571076 5.362524 2.488212 8.491284 2.488212"/></svg>
+</a>
+<a class=social-icon href=https://github.com/Abemii/ target=_blank rel=noopener title=GitHub><svg width="28" height="28" viewBox="0 0 28 28" fill="#ababab" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><path d="M13.9988029 1.32087331C6.82105037 1.32087331 1 7.14112562 1 14.3212723c0 5.7436386 3.72454649 10.6157955 8.89038951 12.3348169C10.5408085 26.7757983 10.7778323 26.374374 10.7778323 26.0296121 10.7778323 25.7215609 10.7666595 24.9035493 10.760275 23.8189856 7.14426471 24.6042767 6.38131925 22.0760223 6.38131925 22.0760223c-.59136253-1.5019491-1.44369072-1.9017772-1.44369072-1.9017772C3.75729765 19.3682044 5.02701126 19.3841656 5.02701126 19.3841656 6.33183953 19.4759425 7.01817121 20.7241085 7.01817121 20.7241085c1.15958133 1.9863716 3.04300319 1.4125664 3.78360289 1.0797753.1181129-.8395592.4540962-1.4125663.8251942-1.7373768C8.74038491 19.7385043 5.70536235 18.6228163 5.70536235 13.6413251c0-1.4189508.50676816-2.5801283 1.33834679-3.4883207C6.90963504 9.82420367 6.46351945 8.50181809 7.17139875 6.71256734c0 0 1.09094816-.34955032 3.57451115 1.33276037C11.78259 7.75642995 12.8950858 7.61277914 14.000399 7.60719272 15.1049142 7.61277914 16.2166119 7.75642995 17.2548881 8.04532771c2.4819669-1.68231069 3.571319-1.33276037 3.571319-1.33276037C21.5356825 8.50181809 21.0895669 9.82420367 20.9562909 10.1530044 21.7894656 11.0611968 22.2922435 12.2223743 22.2922435 13.6413251c0 4.9942601-3.039811 6.0931889-5.935173 6.4148071.4660671.401424200000001.8818564 1.194696.8818564 2.4077473C17.2389269 24.2012564 17.2229657 25.603448 17.2229657 26.0296121 17.2229657 26.3775663 17.4575954 26.7821827 18.116793 26.6552912 23.2786458 24.9322794 27 20.0633148 27 14.3212723 27 7.14112562 21.1789496 1.32087331 13.9988029 1.32087331"/></svg>
+</a>
+</div>
+<p><a href=https://github.com/kimcc/hugo-theme-noteworthy target=_blank rel=noopener>Noteworthy theme</a></p>
+<p><a href=https://gohugo.io target=_blank rel=noopener>Built with Hugo</a></p>
+<script src=https://abemii.github.io/js/main.min.c1aee25a817e9beb1f9c4afd9d62311227a7f5e46720e404dc1dda97281f47f2.js integrity="sha256-wa7iWoF+m+sfnEr9nWIxEien9eRnIOQE3B3alygfR/I=" crossorigin=anonymous></script>
+</footer>
+</nav>
+<div id=content class=content-container>
+<h1 class=post-title>feline.nvim: is the order a cool and fast status bar?</h1>
+<time>February 12, 2022</time>
+<div>
+<p>
+<h2 id=序>序</h2>
+<p>私の Neovim は起動時間が長い。 180 ms もかかっていた。
+1 秒もかかっていないので、気にするほどのことでもないのかもしれないが、
+生の Neovim が 5ms 程度で起動することを考えると、速さを追い求めたくなってしまう。
+速さにこそ本質がある。</p>
+<p>起動・動作の高速化のためにいくつかのことを行ってみたが、
+ここではステータスバーを <a href=https://github.com/vim-airline/vim-airline>vim-airline</a> から
+<a href=https://github.com/feline-nvim/feline.nvim>feline.nvim</a> に変更してみた。</p>
+<p>もともと airline はなんかかっこいいという程度の理由で使っており、
+大した設定もしていなかった。よく意味もわからず表示していたものもあり、今回はこれを見直すことにした。</p>
+<p>feline.nvim は lua で書かれたプラグインで、 vimscript で書かれたものよりも高速に動作することが期待できる。
+lua で書かれたステータスバープラグインは他にもあるが、 なんとなく feline.nvim を使うことにした。</p>
+<p>結果として、 Neovim の起動時間が半分程度になり（ 118ms 程度 → 64ms 程度）、
+なかなか良い見た目のステータスバーとなった。</p>
+<p>本稿では、 vim-airline と feline.nvim の起動時間の比較と、私の設定を紹介する。</p>
+<h2 id=環境>環境</h2>
+<h3 id=pc>PC</h3>
+<ul>
+<li>OS: Ubuntu 20.04.3 LTS</li>
+<li>CPU: Intel(R) Core(TM) i7-9700K CPU @ 3.60GHz</li>
+<li>RAM: DIMM DDR4 Synchronous 2133 MHz x2 (32GB)</li>
+</ul>
+<h3 id=neovim>Neovim</h3>
+<ul>
+<li>NVIM v0.6.1</li>
+<li>feline.nvim v0.4.3</li>
+</ul>
+<h2 id=felinenvim-の導入>feline.nvim の導入</h2>
+<p><a href=https://github.com/feline-nvim/feline.nvim>README</a> に書かれている通りにインストールする。
+私の場合は、 vim-plug を使用しているので、以下のようにインストールした。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-vim data-lang=vim><span style=color:#a6e22e>Plug</span> <span style=color:#e6db74>&#39;feline-nvim/feline.nvim&#39;</span><span style=color:#960050;background-color:#1e0010>
+</span></code></pre></div><p>ステータスバーに表示されている内容は以下の通りである：</p>
+<ul>
+<li>Vim mode (NORMAL とか INSERT とか)</li>
+<li>File type (python とか cpp とか)</li>
+<li>File name</li>
+<li>Git branch, add, change, remove</li>
+<li>Diagnostics</li>
+<li>File OS</li>
+<li>Cursor position and percentage in file</li>
+</ul>
+<figure class=center><img src=https://abemii.github.io/images/posts/feline.nvim/feline.nvim.png width=100%>
+</figure>
+<h2 id=felinenvim-の設定>feline.nvim の設定</h2>
+<p>プラグインの設定は lua で記述する必要がある。
+README のリンクにあった<a href=https://github.com/ibhagwan/nvim-lua/blob/main/lua/plugins/feline.lua>この例</a>を参考に設定を記述した。</p>
+<p>しかし、この例では Diagnostics の情報を builtin lsp からとるようになっており、私が使用している coc.nvim には対応していない。
+そのため、 coc.nvim の Diagnostics の情報をとってくる部分は自分で書く必要があった。<sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup></p>
+<p>実装をみる限りでは、builtin lsp の各 severity の個数をとってきて表示しているようなので、
+これを coc.nvim から取得できるように実装すれば良い。</p>
+<p>実装すべきなのは以下の 2 つ:</p>
+<ul>
+<li>各 severity の個数の表示
+<ul>
+<li>(info, warning, error, hint) について、その個数を表示する。</li>
+</ul>
+</li>
+<li>表示が必要かどうかの判定
+<ul>
+<li>もし、 diagnostics の情報がとれない、あるいは、個数が 0 であれば何も表示しない。</li>
+</ul>
+</li>
+</ul>
+<p>coc.nvim の diagnostics の情報は、辞書型の変数 <code>b:coc_diagnostic_info</code> に格納されている。
+よって、この変数を lua で読み取るような関数を実装する。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-lua data-lang=lua><span style=color:#75715e>-- ある severity の diagnostics が存在するかを判定</span>
+<span style=color:#66d9ef>local</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>diagnostics_exist</span>(severity)
+    <span style=color:#66d9ef>local</span> info <span style=color:#f92672>=</span> vim.b.coc_diagnostic_info
+    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>not</span> info) <span style=color:#66d9ef>then</span>
+        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>false</span>
+    <span style=color:#66d9ef>else</span>
+        <span style=color:#66d9ef>local</span> count <span style=color:#f92672>=</span> info[severity]
+        <span style=color:#66d9ef>if</span> count <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>0</span> <span style=color:#66d9ef>then</span>
+            <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>true</span>
+        <span style=color:#66d9ef>else</span>
+            <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>false</span>
+        <span style=color:#66d9ef>end</span>
+    <span style=color:#66d9ef>end</span>
+<span style=color:#66d9ef>end</span>
+
+<span style=color:#75715e>-- ある severity の diagnostics の個数を返す</span>
+<span style=color:#66d9ef>local</span> lsp_get_diag <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span>(str)
+    <span style=color:#66d9ef>local</span> info <span style=color:#f92672>=</span> vim.b.coc_diagnostic_info
+    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>not</span> info) <span style=color:#66d9ef>then</span>
+        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#39;&#39;</span>
+    <span style=color:#66d9ef>else</span>
+        <span style=color:#66d9ef>local</span> count <span style=color:#f92672>=</span> info[str]
+        <span style=color:#66d9ef>if</span> (<span style=color:#f92672>not</span> count) <span style=color:#66d9ef>then</span>
+            <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#39; 0 &#39;</span>
+        <span style=color:#66d9ef>else</span>
+            <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#39; &#39;</span><span style=color:#f92672>..</span>count<span style=color:#f92672>..</span><span style=color:#e6db74>&#39; &#39;</span>
+        <span style=color:#66d9ef>end</span>
+    <span style=color:#66d9ef>end</span>
+<span style=color:#66d9ef>end</span>
+</code></pre></div><p>以上の設定は<a href=https://github.com/Abemii/dotfiles/blob/master/nvim/cfgs/feline.lua>ここ</a>にある。</p>
+<h2 id=起動時間の比較>起動時間の比較</h2>
+<p>ここでは vim-airline と feline.nvim を読み込んだときの起動時間を比較する。
+使用した <code>init.vim</code> は次の通り。</p>
+<ul>
+<li>vim-airline</li>
+</ul>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-vim data-lang=vim><span style=color:#a6e22e>filetype</span> <span style=color:#a6e22e>off</span><span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span><span style=color:#a6e22e>call</span> <span style=color:#a6e22e>plug</span>#<span style=color:#a6e22e>begin</span>(<span style=color:#e6db74>&#39;/tmp/nvim/plugged_airline&#39;</span>)<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span><span style=color:#a6e22e>Plug</span> <span style=color:#e6db74>&#39;vim-airline/vim-airline&#39;</span><span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span><span style=color:#a6e22e>call</span> <span style=color:#a6e22e>plug</span>#<span style=color:#a6e22e>end</span>()<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span><span style=color:#a6e22e>set</span> <span style=color:#a6e22e>termguicolors</span><span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span><span style=color:#a6e22e>filetype</span> <span style=color:#a6e22e>plugin</span> <span style=color:#a6e22e>indent</span> <span style=color:#a6e22e>on</span><span style=color:#960050;background-color:#1e0010>
+</span></code></pre></div><ul>
+<li>feline.nvim</li>
+</ul>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-vim data-lang=vim><span style=color:#a6e22e>filetype</span> <span style=color:#a6e22e>off</span><span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span><span style=color:#a6e22e>call</span> <span style=color:#a6e22e>plug</span>#<span style=color:#a6e22e>begin</span>(<span style=color:#e6db74>&#39;/tmp/nvim/plugged_feline&#39;</span>)<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span><span style=color:#a6e22e>Plug</span> <span style=color:#e6db74>&#39;feline-nvim/feline.nvim&#39;</span><span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span><span style=color:#a6e22e>call</span> <span style=color:#a6e22e>plug</span>#<span style=color:#a6e22e>end</span>()<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span><span style=color:#a6e22e>set</span> <span style=color:#a6e22e>termguicolors</span><span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span><span style=color:#a6e22e>lua</span> &lt;&lt; <span style=color:#a6e22e>EOF</span><span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span><span style=color:#a6e22e>require</span>(<span style=color:#e6db74>&#39;feline&#39;</span>).<span style=color:#a6e22e>setup</span>()<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span><span style=color:#a6e22e>EOF</span><span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span><span style=color:#a6e22e>filetype</span> <span style=color:#a6e22e>plugin</span> <span style=color:#a6e22e>indent</span> <span style=color:#a6e22e>on</span><span style=color:#960050;background-color:#1e0010>
+</span></code></pre></div><p>それぞれ <code>:PlugInstall</code> を行った後、 10 回ずつ起動して <code>startuptime</code> を記録し、その起動時間の平均をとった。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#75715e># log startuptime</span>
+$ repeat <span style=color:#ae81ff>10</span> nvim -u init_feline.vim --startuptime /tmp/startuptime_feline.log
+$ repeat <span style=color:#ae81ff>10</span> nvim -u init_airline.vim --startuptime /tmp/startuptime_airline.log
+
+<span style=color:#75715e># calculate average</span>
+$ cat /tmp/startuptime_airline.log | grep <span style=color:#e6db74>&#34;NVIM STARTED&#34;</span> | awk <span style=color:#e6db74>&#39;{m+=$1} END{print m/NR;}&#39;</span>   
+57.5417
+$ cat /tmp/startuptime_feline.log | grep <span style=color:#e6db74>&#34;NVIM STARTED&#34;</span> | awk <span style=color:#e6db74>&#39;{m+=$1} END{print m/NR;}&#39;</span>
+19.2784
+</code></pre></div><p>確かに、 feline.nvim のほうがだいぶ起動時間が短いことがわかる。</p>
+<h2 id=結>結</h2>
+<p>本稿では、 vim-airline から feline.nvim に変更してみた結果を紹介した。
+また、 feline.nvim で coc.nvim の diagnostics 情報を読み取る方法も書いた。</p>
+<h2 id=参考>参考</h2>
+<ul>
+<li>feline.nvim
+<ul>
+<li><a href=https://zenn.dev/kyoh86/articles/8f6d070bc4be20>久しぶりにNeovimの設定を見直してみる｜kyoh86</a></li>
+<li><a href=https://scrapbox.io/tamago324vim/feline.nvim_%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%8B>feline.nvim を使ってみる</a></li>
+<li><a href=https://github.com/ibhagwan/nvim-lua/blob/main/lua/plugins/feline.lua>Config by iBhagwan</a></li>
+</ul>
+</li>
+<li>lua
+<ul>
+<li><a href=https://zenn.dev/hituzi_no_sippo/articles/871c06cdbc45b53181e3>NeovimとLua｜hituzi no sippo</a></li>
+<li><a href=https://github.com/willelz/nvim-lua-guide-ja/blob/master/README.ja.md>Getting started using Lua in Neovim</a></li>
+</ul>
+</li>
+<li>私の設定: <a href=https://github.com/Abemii/dotfiles/blob/master/nvim/cfgs/feline.lua>https://github.com/Abemii/dotfiles/blob/master/nvim/cfgs/feline.lua</a></li>
+</ul>
+<section class=footnotes role=doc-endnotes>
+<hr>
+<ol>
+<li id=fn:1 role=doc-endnote>
+<p>lua を触るのは初めてだったので、よくわからずに書いた。&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+</p>
+</div>
+<div class=page-footer>
+<hr class=footer-divider>
+<a class=tag href=https://abemii.github.io/tags/neovim>#Neovim</a>
+<a class=tag href=https://abemii.github.io/tags/feline.nvim>#feline.nvim</a>
+</div>
+<link rel=stylesheet type=text/css href=https://abemii.github.io/css/katex.min.css crossorigin=anonymous>
+<script type=text/javascript src=https://abemii.github.io/js/katex.min.js crossorigin=anonymous></script>
+<script type=text/javascript src=https://abemii.github.io/js/auto-render.min.js onload=renderMathInElement(document.body) crossorigin=anonymous></script>
+</div>
+<footer class=footer-mobile>
+<div class=social-icons>
+<a class=social-icon href=https://twitter.com/abemii_ target=_blank rel=noopener title=Twitter><svg width="28" height="28" viewBox="0 0 28 28" fill="#ababab" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><path d="M8.991284 24.971612c10.189152.0 15.761088-8.441388 15.761088-15.761088C24.752372 8.970656 24.747512 8.731868 24.736496 8.494376 25.818008 7.712564 26.758256 6.737 27.5 5.62622c-.992628.440856-2.060748.738072-3.181248.871992 1.14372-.685584 2.02176-1.770768 2.435832-3.064176-1.070496.6345-2.25558 1.095984-3.517344 1.344492-1.010772-1.076652-2.450412-1.75014-4.043412-1.75014-3.059424.0-5.540292 2.480868-5.540292 5.539104.0.434808.0487079999999995.857412.14364 1.26306C9.19346 9.599108 5.11106 7.39472 2.3792 4.04294c-.476172.818424-.750168 1.769688-.750168 2.784132.0 1.921968.97794 3.61854 2.464992 4.61106C3.185528 11.41016 2.331788 11.160464 1.585184 10.745096 1.583888 10.768208 1.583888 10.791428 1.583888 10.815728c0 2.683152 1.909764 4.922856 4.4442 5.43078C5.562932 16.373084 5.07326 16.44134 4.56782 16.44134 4.210988 16.44134 3.863876 16.406024 3.526484 16.34144c.70524 2.200824 2.750112 3.802356 5.174928 3.8475-1.896264 1.485756-4.284576 2.37114-6.879924 2.37114C1.374476 22.56008.93362 22.534592.5 22.4834c2.451708 1.571076 5.362524 2.488212 8.491284 2.488212"/></svg>
+</a>
+<a class=social-icon href=https://github.com/Abemii/ target=_blank rel=noopener title=GitHub><svg width="28" height="28" viewBox="0 0 28 28" fill="#ababab" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><path d="M13.9988029 1.32087331C6.82105037 1.32087331 1 7.14112562 1 14.3212723c0 5.7436386 3.72454649 10.6157955 8.89038951 12.3348169C10.5408085 26.7757983 10.7778323 26.374374 10.7778323 26.0296121 10.7778323 25.7215609 10.7666595 24.9035493 10.760275 23.8189856 7.14426471 24.6042767 6.38131925 22.0760223 6.38131925 22.0760223c-.59136253-1.5019491-1.44369072-1.9017772-1.44369072-1.9017772C3.75729765 19.3682044 5.02701126 19.3841656 5.02701126 19.3841656 6.33183953 19.4759425 7.01817121 20.7241085 7.01817121 20.7241085c1.15958133 1.9863716 3.04300319 1.4125664 3.78360289 1.0797753.1181129-.8395592.4540962-1.4125663.8251942-1.7373768C8.74038491 19.7385043 5.70536235 18.6228163 5.70536235 13.6413251c0-1.4189508.50676816-2.5801283 1.33834679-3.4883207C6.90963504 9.82420367 6.46351945 8.50181809 7.17139875 6.71256734c0 0 1.09094816-.34955032 3.57451115 1.33276037C11.78259 7.75642995 12.8950858 7.61277914 14.000399 7.60719272 15.1049142 7.61277914 16.2166119 7.75642995 17.2548881 8.04532771c2.4819669-1.68231069 3.571319-1.33276037 3.571319-1.33276037C21.5356825 8.50181809 21.0895669 9.82420367 20.9562909 10.1530044 21.7894656 11.0611968 22.2922435 12.2223743 22.2922435 13.6413251c0 4.9942601-3.039811 6.0931889-5.935173 6.4148071.4660671.401424200000001.8818564 1.194696.8818564 2.4077473C17.2389269 24.2012564 17.2229657 25.603448 17.2229657 26.0296121 17.2229657 26.3775663 17.4575954 26.7821827 18.116793 26.6552912 23.2786458 24.9322794 27 20.0633148 27 14.3212723 27 7.14112562 21.1789496 1.32087331 13.9988029 1.32087331"/></svg>
+</a>
+</div>
+<div class=footer-mobile-links>
+<p><a href=https://github.com/kimcc/hugo-theme-noteworthy target=_blank rel=noopener>Noteworthy theme</a></p>
+<span class=divider-bar>|</span>
+<p><a href=https://gohugo.io target=_blank rel=noopener>Built with Hugo</a></p>
+</div>
+<script src=https://abemii.github.io/js/main.min.c1aee25a817e9beb1f9c4afd9d62311227a7f5e46720e404dc1dda97281f47f2.js integrity="sha256-wa7iWoF+m+sfnEr9nWIxEien9eRnIOQE3B3alygfR/I=" crossorigin=anonymous></script>
+</footer>
+</body>
+</html>
