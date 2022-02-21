@@ -1,6 +1,6 @@
 ---
 author: "im"
-title: "Is the order a partial formatter for python?"
+title: "black-macchiato: Is the order a partial formatter for python?"
 date: "2022-01-24"
 tags: [
     "Neovim",
@@ -122,4 +122,4 @@ nmap <leader>F <Plug>(coc-format)
 
 ## 動作確認
 
-![動作確認](/images/BlackMacchiato.gif)
+{{< resize-image src="figures/BlackMacchiato.gif" >}}

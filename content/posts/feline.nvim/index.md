@@ -62,7 +62,7 @@ Plug 'feline-nvim/feline.nvim'
 - File OS 
 - Cursor position and percentage in file
 
-{{< figure src="/images/posts/feline.nvim/feline.nvim.png" class="center" width="100%" >}}
+{{< figure src="figures/feline.nvim.png" class="center" width="100%" >}}
 
 ## feline.nvim の設定
 
