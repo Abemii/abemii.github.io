@@ -38,6 +38,10 @@
 <p><a href=https://github.com/kimcc/hugo-theme-noteworthy target=_blank rel=noopener>Noteworthy theme</a></p>
 <p><a href=https://gohugo.io target=_blank rel=noopener>Built with Hugo</a></p>
 <script src=https://abemii.github.io/js/main.min.c1aee25a817e9beb1f9c4afd9d62311227a7f5e46720e404dc1dda97281f47f2.js integrity="sha256-wa7iWoF+m+sfnEr9nWIxEien9eRnIOQE3B3alygfR/I=" crossorigin=anonymous></script>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css integrity=sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ crossorigin=anonymous>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js integrity=sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js integrity=sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI crossorigin=anonymous onload=renderMathInElement(document.body)></script>
+<script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}]})})</script>
 </footer>
 </nav>
 <div id=content class=content-container>
@@ -45,6 +49,24 @@
 <div class=description>
 <p>my note</p>
 </div>
+<article>
+<h2>
+<a href=https://abemii.github.io/posts/reading-deit/>
+[Reading] Training data-efficient image transformers & distillation through attention
+</a>
+</h2>
+<div>
+<p>DeiT 論文を読んだのでそのメモ。
+多くの ViT 研究において、 DeiT の学習スキームがフォローされている。 最近読んだ ShiftViT1 において言及されており、ちゃんと読んでおこうと思っていた。</p>
+</div>
+<div class=post-footer>
+<time>February 25, 2022</time>
+<a class=tag href=https://abemii.github.io/tags/vit>#ViT</a>
+<a class=tag href=https://abemii.github.io/tags/transformer>#Transformer</a>
+<a class=tag href=https://abemii.github.io/tags/deep-learning>#Deep Learning</a>
+<a class=tag href=https://abemii.github.io/tags/computer-vision>#Computer Vision</a>
+</div>
+</article>
 <article>
 <h2>
 <a href=https://abemii.github.io/posts/feline.nvim/>
@@ -94,25 +116,14 @@ Black is awesome Python のフォーマッタとしては、以下の3つのツ�
 <a class=tag href=https://abemii.github.io/tags/black>#black</a>
 </div>
 </article>
-<article>
-<h2>
-<a href=https://abemii.github.io/posts/cocinstall/>
-Is the order a well-managed CocInstall?
-</a>
-</h2>
-<div>
-<p>導入 coc.nvim の拡張を管理する方法について。
-自分は、Neovim の設定をすべて dotfiles レポジトリで管理している。 そのため、新しく環境構築をする必要がある場合、
-./setup.sh を実行するだけですべてがインストールされる。</p>
-</div>
-<div class=post-footer>
-<time>January 16, 2022</time>
-<a class=tag href=https://abemii.github.io/tags/neovim>#Neovim</a>
-<a class=tag href=https://abemii.github.io/tags/coc.nvim>#coc.nvim</a>
-</div>
-</article>
 </div>
 <div class=paginator>
+<p>Page 1 of 2</p>
+<div class=paginator-group>
+<a class="color-link older" href=https://abemii.github.io/page/2/>
+Older<svg width="13" height="9" viewBox="0 0 13 9" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g class="color-arrow" fill="#63bda2" fill-rule="nonzero"><polygon points="7.6707477 1.37628835 8.3292523 0.623711653 12.7592994 4.50000282 8.32918951 8.37629079 7.67069049 7.62370921 11.2407006 4.49999718"/><polygon id="Path" points="0 5 0 4 12 4 12 5"/></g></svg>
+</a>
+</div>
 </div>
 <link rel=stylesheet type=text/css href=https://abemii.github.io/css/katex.min.css crossorigin=anonymous>
 <script type=text/javascript src=https://abemii.github.io/js/katex.min.js crossorigin=anonymous></script>

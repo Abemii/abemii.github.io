@@ -4,7 +4,7 @@
 <meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=format-detection content="telephone=no">
-<title>black | 我的...</title>
+<title>[Reading] Training data-efficient image transformers & distillation through attention | 我的...</title>
 <link rel=apple-touch-icon sizes=180x180 href=https://abemii.github.io/apple-touch-icon.png>
 <link rel=icon type=image/png sizes=32x32 href=https://abemii.github.io/favicon-32x32.png>
 <link rel=icon type=image/png sizes=16x16 href=https://abemii.github.io/favicon-16x16.png>
@@ -12,7 +12,6 @@
 <link rel=mask-icon href=https://abemii.github.io/safari-pinned-tab.svg color=#ff3db4>
 <meta name=theme-color content="#ffffff">
 <link rel=stylesheet href=https://abemii.github.io/css/main.min.e34415025514319010e741089e6920454053855755ba465f66943ad102d2cb08.css>
-<link rel=alternate type=application/rss+xml href=https://abemii.github.io/tags/black/index.xml title=我的...>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-220178174-1','auto'),ga('set','anonymizeIp',!0),ga('send','pageview'))</script></head>
 <body>
 <nav>
@@ -44,22 +43,180 @@
 </footer>
 </nav>
 <div id=content class=content-container>
-<h1>Tagged "black"</h1>
-<article>
-<h2>
-<a href=https://abemii.github.io/posts/black-macchiato/>
-black-macchiato: Is the order a partial formatter for python?
-</a>
-</h2>
+<h1 class=post-title>[Reading] Training data-efficient image transformers & distillation through attention</h1>
+<time>February 25, 2022</time>
 <div>
-<p>Python コードはブラックであるべきだ、そうコーヒーのように。 しかしときたま、ある人が不可解な理由でミルクを入れるように言ってくることがある。 カフェラテは飲めないから、結局妥協してカフェマキアートに落ち着くのだ。
-(black-macchiato README より引用、邦訳。)
-Black is awesome Python のフォーマッタとしては、以下の3つのツールが人気らしい。1</p>
+<p>
+<p>DeiT 論文を読んだのでそのメモ。</p>
+<p>多くの ViT 研究において、 DeiT の学習スキームがフォローされている。
+最近読んだ ShiftViT<sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup> において言及されており、ちゃんと読んでおこうと思っていた。</p>
+<h2 id=書誌情報>書誌情報</h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bib data-lang=bib><span style=color:#a6e22e>@misc</span>{touvron2021training,
+      <span style=color:#a6e22e>title</span>=<span style=color:#e6db74>{Training data-efficient image transformers &amp; distillation through attention}</span>, 
+      <span style=color:#a6e22e>author</span>=<span style=color:#e6db74>{Hugo Touvron and Matthieu Cord and Matthijs Douze and Francisco Massa and Alexandre Sablayrolles and Hervé Jégou}</span>,
+      <span style=color:#a6e22e>year</span>=<span style=color:#e6db74>{2021}</span>,
+      <span style=color:#a6e22e>eprint</span>=<span style=color:#e6db74>{2012.12877}</span>,
+      <span style=color:#a6e22e>archivePrefix</span>=<span style=color:#e6db74>{arXiv}</span>,
+      <span style=color:#a6e22e>primaryClass</span>=<span style=color:#e6db74>{cs.CV}</span>
+}
+</code></pre></div><ul>
+<li>図表は特に言及のない限り本論文からの引用。</li>
+</ul>
+<h2 id=概要>概要</h2>
+<ul>
+<li>ViT と同じネットワーク構造のモデルを用い、学習方法を工夫することで精度を上げ、
+また、学習に必要な計算リソース・時間を大きく短縮した。</li>
+<li>蒸留トークン (distillation token) を用いた蒸留手法を提案。 class token とは別の token を用いて
+教師モデルからの教師信号を学習させることで、より性能を高められる。</li>
+<li>学習時の工夫について詳細な分析を行い、よくまとめている。</li>
+</ul>
+<h2 id=distillation>Distillation</h2>
+<ul>
+<li>
+<p>Distillation (蒸留) の方法は、 Soft と Hard に大別される。</p>
+<ul>
+<li>
+<p>Soft なほうは、生徒モデルの logits $ Z_s $ と 教師モデルの logits $ Z_t $ を KL-loss を使って最小化する。</p>
+</li>
+<li>
+<p>Hard なほうでは、 教師モデルの hard decision $ y_t = \argmax_c Z_t(c) $ を使い、 Cross entropy で最適化する。</p>
+<ul>
+<li>この方法は Soft と異なりパラメータフリーであるという良さがある。</li>
+<li>さらに実験では label smoothing と呼ばれる手法を取り入れている。
+すなわち、 真なクラスを $ 1 - \epsilon $ とし、その他のクラスを $\epsilon$ で等分するといった方法である。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>蒸留トークン (distillation token)</p>
+<ul>
+<li>クラストークンとは別に、 蒸留トークンを加える。</li>
+<li>蒸留トークンもクラストークンと同様に使うが、 クラストークンと異なり、
+こちらは教師モデルの hard decision を教師信号とする。</li>
+<li>クラストークンと蒸留トークンは同じような出力をするが、全く同じではない。</li>
+</ul>
+</li>
+</ul>
+<img class=article-image src=https://abemii.github.io/posts/reading-deit/figures/fig2.png alt>
+<p>実験結果より、</p>
+<ul>
+<li>蒸留トークンを使わない場合、3 種類の蒸留手法 (行わない/ソフト/ハード) のうち ハードが最も良かった。</li>
+<li>蒸留トークンを使用し、 ハード蒸留を使って学習を行った後、
+クラス予測には、クラス embedding, 蒸留 embedding, 両方の3種類の方法を使うことが考えられる。
+このうち最も結果がよかったのは、 蒸留 embedding を使うもので、
+これは、教師モデルである convnet の帰納バイアスの恩恵を受けているからだろうと著者は考えている。</li>
+</ul>
+<h2 id=学習戦略に関する-ablation-study>学習戦略に関する ablation study</h2>
+<h3 id=重みの初期化>重みの初期化</h3>
+<p>Transformer は比較的初期化方法に敏感であり、方法によっては収束しない場合がある。
+最終的に切断正規分布 (truncated normal distribution) を使用して重みの初期化を行った。</p>
+<h3 id=data-augmentation>data augmentation</h3>
+<ul>
+<li>Transformer では convolution に比べより多くのデータ量が必要。
+<ul>
+<li>convolution はより多くの事前分布を統合することができる。</li>
+<li>同じ大きさのデータセットで学習を行うためには、大規模な data augmentation を
+行う必要がある。</li>
+</ul>
+</li>
+<li>データ効率の良い学習を行うために、異なるタイプの強力な data augmentation を評価。
+<ul>
+<li>Auto-augment, rand-augment, random erasing により性能が向上。</li>
+<li>ほとんどの data augm. 手法は有用であることが分かった。</li>
+</ul>
+</li>
+</ul>
+<h3 id=正則化と最適化>正則化と最適化</h3>
+<ul>
+<li>最適化アルゴリズム
+<ul>
+<li>ViT と同じく AdamW を用い、学習率を同じ値を用いることが最も良い結果となった。</li>
+<li>ただし、 Weight Decay の値は、収束のためにより小さい値を用いることとした。</li>
+</ul>
+</li>
+<li>Stochastic depth
+<ul>
+<li>Dropout は ノードをオフにする = 横方向にネットワークを小さくする。</li>
+<li>Stochastic depth は Layer 数を変化させる = 縦方向にネットワークを小さくする。</li>
+<li>Short なネットワークを学習し、 Deep なネットワークを得ることができる。</li>
+<li>特に深い transformer の収束を促進させる。</li>
+</ul>
+</li>
+<li>正則化
+<ul>
+<li>Mixup
+</li>
+<li>Cutmix
+</li>
+</ul>
+</li>
+<li>repeated augmentation
+<ul>
+<li>一つの画像からいくつかの augmentation 画像をつくることで、
+1 バッチ内で同じサンプルを複数回読み込ませる手法。</li>
+<li>提案した学習スキームの鍵となる構成要素。</li>
+</ul>
+</li>
+</ul>
+<h3 id=exponential-moving-average-ema>Exponential Moving Average (EMA)</h3>
+<ul>
+<li>EMA を行うことで、0.1 pt 程度性能が向上したが、 fine tuning すると、同じ結果となった。</li>
+</ul>
+<h3 id=異なる解像度での-fine-tuning>異なる解像度での fine tuning</h3>
+<ul>
+<li>学習は解像度は 224 で行ったが、 fine-tuning は 384 で行った。</li>
+<li>Fixing the train-test resolution discrepancy
+<ul>
+<li>学習時の解像度は、テスト時より小さい解像度のほうが良いという先行研究。</li>
+<li>FixefficientNet と異なり、学習時の augmentation は弱めずに行う。</li>
+</ul>
+</li>
+<li>Positional embeddings の補間
+<ul>
+<li>bilinear ではなく、 bicubic を用いて補間を行った。</li>
+<li>bilinear を用いると、その補間された verctor の $ l_2 $ ノルムが
+隣接する vector のノルムよりも小さくなってしまう。</li>
+<li>これを fine-tuning せずに Transformer に適用すると、性能が著しく落ちる。</li>
+<li>bicubic を用いると、vector の norm が維持される。</li>
+</ul>
+</li>
+</ul>
+<h3 id=学習時間>学習時間</h3>
+<ul>
+<li>batch norm を使っていないので、 batch size を減らしても性能に影響しない。
+よって、大きなモデルを学習するのが簡単になる。</li>
+</ul>
+<h2 id=参照>参照</h2>
+<ul>
+<li><a href=https://zenn.dev/takoroy/scraps/ced7059a36d846>https://zenn.dev/takoroy/scraps/ced7059a36d846</a>
+<ul>
+<li>takoroy さんによる本論文のメモ。</li>
+</ul>
+</li>
+<li><a href=https://qiita.com/supersaiakujin/items/eb0553a1ef1d46bd03fa>https://qiita.com/supersaiakujin/items/eb0553a1ef1d46bd03fa</a>
+<ul>
+<li>stochastic depth について、 supersaiakujin さんによる記事。</li>
+</ul>
+</li>
+</ul>
+<section class=footnotes role=doc-endnotes>
+<hr>
+<ol>
+<li id=fn:1 role=doc-endnote>
+<p><a href=https://arxiv.org/pdf/2201.10801.pdf>https://arxiv.org/pdf/2201.10801.pdf</a>&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+</p>
 </div>
-<div class=post-footer>
-<time>January 24, 2022</time>
+<div class=page-footer>
+<hr class=footer-divider>
+<a class=tag href=https://abemii.github.io/tags/vit>#ViT</a>
+<a class=tag href=https://abemii.github.io/tags/transformer>#Transformer</a>
+<a class=tag href=https://abemii.github.io/tags/deep-learning>#Deep Learning</a>
+<a class=tag href=https://abemii.github.io/tags/computer-vision>#Computer Vision</a>
 </div>
-</article>
 <link rel=stylesheet type=text/css href=https://abemii.github.io/css/katex.min.css crossorigin=anonymous>
 <script type=text/javascript src=https://abemii.github.io/js/katex.min.js crossorigin=anonymous></script>
 <script type=text/javascript src=https://abemii.github.io/js/auto-render.min.js onload=renderMathInElement(document.body) crossorigin=anonymous></script>
