@@ -1,7 +1,7 @@
 ---
 author: "im"
 title: "[Reading] Training data-efficient image transformers & distillation through attention"
-date: "2022-02-19"
+date: "2022-02-25"
 tags: [
     "ViT",
     "Transformer",
