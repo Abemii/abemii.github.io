@@ -1,5 +1,7 @@
 baseURL = "https://abemii.github.io"
-languageCode = "en-us"
+languageCode = "ja"
+defaultContentLanguage = "ja"
+hasCJKLanguage = true
 title = "我的..."
 theme = "noteworthy"
 enableRobotsTXT = true
