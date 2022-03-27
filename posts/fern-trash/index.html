@@ -4,7 +4,7 @@
 <meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=format-detection content="telephone=no">
-<title>Neovim | 我的...</title>
+<title>fern.vim でファイルを削除できない問題の解決 | 我的...</title>
 <link rel=apple-touch-icon sizes=180x180 href=https://abemii.github.io/apple-touch-icon.png>
 <link rel=icon type=image/png sizes=32x32 href=https://abemii.github.io/favicon-32x32.png>
 <link rel=icon type=image/png sizes=16x16 href=https://abemii.github.io/favicon-16x16.png>
@@ -12,7 +12,6 @@
 <link rel=mask-icon href=https://abemii.github.io/safari-pinned-tab.svg color=#ff3db4>
 <meta name=theme-color content="#ffffff">
 <link rel=stylesheet href=https://abemii.github.io/css/main.min.e34415025514319010e741089e6920454053855755ba465f66943ad102d2cb08.css>
-<link rel=alternate type=application/rss+xml href=https://abemii.github.io/tags/neovim/index.xml title=我的...>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-220178174-1','auto'),ga('set','anonymizeIp',!0),ga('send','pageview'))</script></head>
 <body>
 <nav>
@@ -44,59 +43,57 @@
 </footer>
 </nav>
 <div id=content class=content-container>
-<h1> "Neovim"</h1>
-<article>
-<h2>
-<a href=https://abemii.github.io/posts/fern-trash/>
-fern.vim でファイルを削除できない問題の解決
-</a>
-</h2>
-<div>
-<p>fern.vim fern.vim は Vim のファイルエクスプローラプラグインの一つである。 以前までは NerdTree を使用していたが、最近 fern.vim に移行してみた。 キーマップを NerdTree に合わせることができることもあり、使い勝手が良い。 ファイルを削除できない しかし</p>
-</div>
-<div class=post-footer>
+<h1 class=post-title>fern.vim でファイルを削除できない問題の解決</h1>
 <time>March 27, 2022</time>
-</div>
-</article>
-<article>
-<h2>
-<a href=https://abemii.github.io/posts/feline.nvim/>
-feline.nvim: is the order a cool and fast status bar?
-</a>
-</h2>
 <div>
-<p>序 私の Neovim は起動時間が長い。 180 ms もかかっていた。 1 秒もかかっていないので、気にするほどのことでもないのかもしれないが、 生の Neovim が 5ms 程度で起動することを考えると、速さを追い求めたくなってしまう。 速さにこそ本</p>
+<p>
+<h2 id=fernvim>fern.vim</h2>
+<p><a href=https://github.com/lambdalisue/fern.vim>fern.vim</a> は Vim のファイルエクスプローラプラグインの一つである。
+以前までは NerdTree を使用していたが、最近 fern.vim に移行してみた。
+キーマップを NerdTree に合わせることができることもあり、使い勝手が良い。</p>
+<h2 id=ファイルを削除できない>ファイルを削除できない</h2>
+<p>しかし使う中で、ファイルを消すことができないという問題に気づいた。
+ファイルを消すキーマップは、デフォルトでは、 <code>Shift-D</code> となっている。
+<code>Shift-D</code> を打鍵すると、ウインドウ下部に以下のメッセージが表示され、
+<code>y</code> で削除できるはずだった。</p>
+<pre tabindex=0><code>The following 1 files will be trashed
+/path/to/file
+Are you sure to continue (Y[es]/no): 
+</code></pre><p>しかし、何も起きない。</p>
+<h2 id=h-fern>:h fern</h2>
+<p>困ったときは help に頼るべきだ。</p>
+<p>help によれば、 fern でファイルを削除する方法は 2 つある。</p>
+<ul>
+<li>fern-action-trash: ファイルを「ゴミ箱」に移す。</li>
+<li>fern-action-remove: ファイルを消去する（<code>rm</code> と同じ）。</li>
+</ul>
+<p><code>Shift-D</code> は前者を実行するが、そのためには、 以下のように CLI のゴミ箱コマンドが必要であるらしい。</p>
+<pre tabindex=0><code>*&lt;Plug&gt;(fern-action-trash=)*
+	Open a prompt to ask if fern can send the cursor node or marked nodes
+	to the system trash-bin. It uses the following implementations to send
+	the node(s) into system trash-bin.
+	OS		Requirement~
+	macOS:		osascript (OS builtin)
+	Windows:	PowerShell (OS builtin)
+	Linux:		trash-cli or gomi (Users need to install)
+			https://github.com/andreafrancia/trash-cli
+			https://github.com/b4b4r07/gomi
+</code></pre><p>Ubuntu では、通常どおり <code>apt-get install</code> で trash-cli をインストールすることができる。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>apt-get update
+apt-get install trash-cli
+</code></pre></div><h2 id=結果>結果</h2>
+<p>trash-cli がインストールされた状態で Neovim を起動し直すと、
+確かにファイルを削除できるようになった。</p>
+<pre tabindex=0><code>1 items are trashed
+</code></pre><h2 id=まとめ>まとめ</h2>
+<p>困ったらまず help を見よう。</p>
+</p>
 </div>
-<div class=post-footer>
-<time>February 12, 2022</time>
+<div class=page-footer>
+<hr class=footer-divider>
+<a class=tag href=https://abemii.github.io/tags/neovim>#Neovim</a>
+<a class=tag href=https://abemii.github.io/tags/fern.vim>#fern.vim</a>
 </div>
-</article>
-<article>
-<h2>
-<a href=https://abemii.github.io/posts/black-macchiato/>
-black-macchiato: Is the order a partial formatter for python?
-</a>
-</h2>
-<div>
-<p>Python コードはブラックであるべきだ、そうコーヒーのように。 しかしときたま、ある人が不可解な理由でミルクを入れるように言ってくることがある。 カフェラテは飲めないから、結局妥協してカフェマキアートに落ち着くの</p>
-</div>
-<div class=post-footer>
-<time>January 24, 2022</time>
-</div>
-</article>
-<article>
-<h2>
-<a href=https://abemii.github.io/posts/cocinstall/>
-Is the order a well-managed CocInstall?
-</a>
-</h2>
-<div>
-<p>導入 coc.nvim の拡張を管理する方法について。 自分は、Neovim の設定をすべて dotfiles レポジトリで管理している。 そのため、新しく環境構築をする必要がある場合、 ./setup.sh を実行するだけですべてがインストールされる。 coc の拡張に</p>
-</div>
-<div class=post-footer>
-<time>January 16, 2022</time>
-</div>
-</article>
 <link rel=stylesheet type=text/css href=https://abemii.github.io/css/katex.min.css crossorigin=anonymous>
 <script type=text/javascript src=https://abemii.github.io/js/katex.min.js crossorigin=anonymous></script>
 <script type=text/javascript src=https://abemii.github.io/js/auto-render.min.js onload=renderMathInElement(document.body) crossorigin=anonymous></script>
