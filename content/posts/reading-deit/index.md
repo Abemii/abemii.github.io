@@ -8,6 +8,7 @@ tags: [
     "Deep Learning",
     "Computer Vision"
 ]
+share: true
 ---
 
 DeiT 論文を読んだのでそのメモ。
