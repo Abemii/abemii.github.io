@@ -6,6 +6,7 @@ tags: [
     "Neovim",
     "feline.nvim"
 ]
+share: true
 ---
 
 ## 序

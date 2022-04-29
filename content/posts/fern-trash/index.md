@@ -6,6 +6,7 @@ tags: [
     "Neovim",
     "fern.vim",
 ]
+share: true
 ---
 ## fern.vim
 

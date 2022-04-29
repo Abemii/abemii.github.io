@@ -6,6 +6,7 @@ tags: [
     "Neovim",
     "coc.nvim",
 ]
+share: true
 ---
 ## 導入
 
