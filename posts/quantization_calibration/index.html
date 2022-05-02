@@ -4,7 +4,7 @@
 <meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=format-detection content="telephone=no">
-<title>Tags | 我的...</title>
+<title>TensorRT の EntropyCalibrator の観察 | 我的...</title>
 <link rel=apple-touch-icon sizes=180x180 href=https://abemii.github.io/apple-touch-icon.png>
 <link rel=icon type=image/png sizes=32x32 href=https://abemii.github.io/favicon-32x32.png>
 <link rel=icon type=image/png sizes=16x16 href=https://abemii.github.io/favicon-16x16.png>
@@ -14,7 +14,6 @@
 <link rel=stylesheet href=https://abemii.github.io/css/main.min.e34415025514319010e741089e6920454053855755ba465f66943ad102d2cb08.css>
 <link rel=stylesheet href=https://use.fontawesome.com/releases/v6.1.1/css/all.css>
 <link rel=stylesheet href=https://abemii.github.io/css/share.css>
-<link rel=alternate type=application/rss+xml href=https://abemii.github.io/tags/index.xml title=我的...>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-220178174-1','auto'),ga('set','anonymizeIp',!0),ga('send','pageview'))</script></head>
 <body>
 <nav>
@@ -46,24 +45,149 @@
 </footer>
 </nav>
 <div id=content class=content-container>
-<h1>Tags</h1>
+<h1 class=post-title>TensorRT の EntropyCalibrator の観察</h1>
+<time>May 2, 2022</time>
+<div>
+<p>
+<p>ディープニューラルネットワーク (DNN) の量子化は、
+主に、モデルの Weight と Activation を単精度浮動小数点 (FP32) から 8ビット整数 (INT8) へ
+変換することを指す。
+この変換は、浮動小数点のスケール $s$ と整数のゼロ点 $z$ を用いて表される。</p>
+<p>本稿では、このスケール $s$ の決定のためのキャリブレーションの手法の一つ、
+Entropy についてそのアルゴリズムと振る舞いについて書く。</p>
+<p>なお、量子化そのものについては、文献 [1] で Quantization Aware Training (QAT) や
+8 ビット以下の量子化などを含めた俯瞰的なサーベイが行われている。
+また、文献 [2] では、各キャリブレーション手法の評価を含む、実践的な内容が述べられている。</p>
+<h2 id=calibration-のアルゴリズム>Calibration のアルゴリズム</h2>
+<p>代表的な Calibration のアルゴリズムとして、以下の 3 種類が挙げられる。[2]</p>
 <ul>
-<li><a href=https://abemii.github.io/tags/black/>black</a> 1</li>
-<li><a href=https://abemii.github.io/tags/black-macchiato/>black-macchiato</a> 1</li>
-<li><a href=https://abemii.github.io/tags/coc.nvim/>coc.nvim</a> 1</li>
-<li><a href=https://abemii.github.io/tags/computer-vision/>Computer Vision</a> 1</li>
-<li><a href=https://abemii.github.io/tags/deep-learning/>Deep Learning</a> 2</li>
-<li><a href=https://abemii.github.io/tags/entropycalibrator/>EntropyCalibrator</a> 1</li>
-<li><a href=https://abemii.github.io/tags/feline.nvim/>feline.nvim</a> 1</li>
-<li><a href=https://abemii.github.io/tags/fern.vim/>fern.vim</a> 1</li>
-<li><a href=https://abemii.github.io/tags/neovim/>Neovim</a> 4</li>
-<li><a href=https://abemii.github.io/tags/python/>Python</a> 1</li>
-<li><a href=https://abemii.github.io/tags/quantization/>Quantization</a> 1</li>
-<li><a href=https://abemii.github.io/tags/tensorrt/>TensorRT</a> 1</li>
-<li><a href=https://abemii.github.io/tags/transformer/>Transformer</a> 1</li>
-<li><a href=https://abemii.github.io/tags/vit/>ViT</a> 1</li>
+<li><strong>Max</strong>: Calibration において観測された最大の絶対値を使う。</li>
+<li><strong>Entropy</strong>: もとの浮動小数点の値と量子化フォーマットで表現できる値の間の情報損失を最小化するために KL-divergence を使う。</li>
+<li><strong>Percentile</strong>: Calibration において観測された値の絶対値の分布のパーセンタイルを使う。
+例えば、 99% の場合は残りの 1% をクリップする。</li>
 </ul>
-<div class=page-footer></div>
+<p>なかでも、TensorRT においてデフォルトの手法となっている Entropy についてその振る舞いを理解したい。</p>
+<h2 id=entropy>Entropy</h2>
+<p>GTC2017 での NVIDIA による発表資料 [3] をもとに、どのように閾値（スケール）が決定されるかを観察する。</p>
+<p>FP32 から INT8 への変換を、再エンコーディングと捉え、その間の情報の損失を最小化することを考える。
+2 つのエンコーディングを確率分布と見れば、その2つの確率分布の距離は Kullback-Leibler divergence を用いて表せる。
+KL-divergence により、与えられたエンコーディングを近似したときの、情報損失の量を測ることができる。
+したがって、情報損失が最小となるような近似を作るのが目的となる。</p>
+<h3 id=アルゴリズム>アルゴリズム</h3>
+<ul>
+<li>入力：アクチベーションのヒストグラム
+$$ H = [m_0, \ldots, m_{N-1}], N = 2048 $$
+を作成する。
+</li>
+<li>ここから、参照分布 $P$ （<code>FP32</code>の分布）を生成し、
+これとの KL-divergence が最小となるような候補分布 $Q$ （<code>INT8</code>の分布）
+を見つけることが目的となる。</li>
+<li>そのため、以下の操作を $i= 2^8, \ldots, N$ に渡って繰り返し、
+$P, Q$ 間の KL-divergence を計算する。</li>
+</ul>
+<ol>
+<li>まず、参照分布 $P$ を作る。
+<ol>
+<li>$H$ の $i-1$ 番目までのビンを使い、
+$$P = [m_0, \ldots, m_{i-1}]$$
+とする。</li>
+<li>$H$ の $i$ 以降のビンの合計を計算し、これを外れ値 $O$ とする。
+$$O = \sum_{k=i}^{N-1} m_k$$</li>
+<li>外れ値 $O$ を $P'$ の末尾に足したものを参照分布 $P$ とする。
+$$ P(i-1) \leftarrow P(i-1) + O $$</li>
+</ol>
+</li>
+<li>次に、候補分布 $Q$ を作る。
+<ol>
+<li>$[m_0, \ldots, m_{i-1}]$ を $2^8$ レベルに量子化する。
+つまり、 $i$ 個のビンに分割されたヒストグラムを $2^8$ 個のビンに分割し直す。</li>
+<li>量子化したヒストグラムを再度 $i$ 個に展開し、 候補分布 $Q$ とする。
+このとき、もとのヒストグラム $H$ で $0$ 個であったビンについては、$0$ を保持する。</li>
+</ol>
+</li>
+<li>$P, Q$ それぞれをその合計で割り、確率分布とする。
+$$ P \leftarrow P / \sum{P} $$
+$$ Q \leftarrow Q / \sum{Q} $$</li>
+<li>得られた参照分布 $P$ と候補分布 $Q$ について、KL-divergence を計算する。
+$$ KL(P||Q) = \sum_{k=0}^{i-1} P(k) \log\frac{P(k)}{Q(k)} $$</li>
+</ol>
+<p>以上から、 $KL(P||Q)$ が最小となる $i$ を求める。</p>
+<ul>
+<li>最終的な閾値 $\theta$ は、 以下のように求まる。
+$$ \theta = (i + 0.5) W $$
+ここで、 $W$ はビンの幅。</li>
+</ul>
+<h2 id=tensorrt-の-entropycalibrator-での振る舞いの観察>TensorRT の EntropyCalibrator での振る舞いの観察</h2>
+<p><a href=https://github.com/NVIDIA/TensorRT/blob/main/tools/pytorch-quantization/pytorch_quantization/calib/histogram.py#L183>公式の実装</a>を参考に、
+実際にどのように上記のループが行われるのか観察してみる。</p>
+<h3 id=実験設定>実験設定</h3>
+<ul>
+<li><code>FP32</code> から <code>INT2</code> への量子化を想定し、上のループを実行してみる。</li>
+<li>キャリブレーションに用いる <code>FP32</code> のアクチベーションは、 $\Chi^2$ 分布から生成した $2^8$ 個のランダムな値を用いる。</li>
+<li>入力のヒストグラム $H$ として、上記を $2^4$ 個のビンに分割したものを用いる（下図）。</li>
+</ul>
+<figure class=center><img src=figures/hist.png width=100%>
+</figure>
+<h3 id=結果>結果</h3>
+<p>下図に、$i = 2^2, \ldots, 2^4$ について、参照分布 $P$（青）と候補分布 $Q$ （橙）をプロットした。</p>
+<ul>
+<li>初期は、外れ値 $O$ が大きいため、参照分布 $P$ の末尾の頻度が大きく、
+その結果、候補分布 $Q$ との KL-divergence が大きい値となっている。</li>
+<li>$i$ が増加するにつれ、 KL-divergence が小さくなっていく様子が見られるが、
+$i=15$ で $\infty$ となっているのが気になる。
+KL-divergence の定義から、 KL-divergence が $\infty$ になる場合はあるので、
+実運用上問題がないかは検証する必要がありそう。</li>
+</ul>
+<figure class=center><img src=figures/plot.png width=100%>
+</figure>
+<h2 id=まとめ>まとめ</h2>
+<p>本稿では、 TensorRT での EntropyCalibrator の中身の挙動について
+アルゴリズムを振り返り、簡単な例での中身の挙動を観察した。</p>
+<h2 id=reference>Reference</h2>
+<ul>
+<li>[1] Amir Gholami, Sehoon Kim, Zhen Dong, Zhewei Yao, Michael W. Mahoney, Kurt Keutzer.
+A Survey of Quantization Methods for Efficient Neural Network Inference.
+<a href=https://arxiv.org/abs/2103.13630><em>arXiv preprint arXiv:2103.13630</em></a>, 2021.</li>
+<li>[2] Hao Wu, Patrick Judd, Xiaojie Zhang, Mikhail Isaev and Paulius Micikevicius.
+Integer Quantization for Deep Learning Inference: Principles and Empirical Evaluation.
+<a href=https://arxiv.org/abs/2004.09602><em>arXiv preprint arXiv:2004.09602</em></a>, 2020.</li>
+<li>[3] Szymon Migacz. Nvidia 8-bit inference width tensorrt.
+In <em>GPU Technology Conference</em>, 2017.
+<a href=https://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf>https://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf</a></li>
+<li>[4] <a href=https://github.com/htqin/awesome-model-quantization>Awesome Model Quantization</a>
+<ul>
+<li>最新の量子化関連の論文のまとめ</li>
+</ul>
+</li>
+</ul>
+</p>
+</div>
+<div class=page-footer>
+<hr class=footer-divider>
+<a class=tag href=https://abemii.github.io/tags/deep-learning>#Deep Learning</a>
+<a class=tag href=https://abemii.github.io/tags/quantization>#Quantization</a>
+<a class=tag href=https://abemii.github.io/tags/tensorrt>#TensorRT</a>
+<a class=tag href=https://abemii.github.io/tags/entropycalibrator>#EntropyCalibrator</a>
+</div>
+<div class=sns-share>
+<ul>
+<li>
+<a class="sns-share-btn sns-share-btn-fb" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fabemii.github.io%2fposts%2fquantization_calibration%2f&t=TensorRT%20%e3%81%ae%20EntropyCalibrator%20%e3%81%ae%e8%a6%b3%e5%af%9f" target=_blank title=Facebook rel=nofollow><i class="fab fa-facebook-f"></i></a>
+</li>
+<li>
+<a class="sns-share-btn sns-share-btn-tw" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fabemii.github.io%2fposts%2fquantization_calibration%2f&text=TensorRT%20%e3%81%ae%20EntropyCalibrator%20%e3%81%ae%e8%a6%b3%e5%af%9f" target=_blank title=Twitter rel=nofollow><i class="fab fa-twitter"></i></a>
+</li>
+<li>
+<a class="sns-share-btn sns-share-btn-line" href=https://line.me/R/msg/text/?TensorRT%20%e3%81%ae%20EntropyCalibrator%20%e3%81%ae%e8%a6%b3%e5%af%9fhttps%3a%2f%2fabemii.github.io%2fposts%2fquantization_calibration%2f target=_blank title=LINE rel=nofollow><i class="fa-brands fa-line"></i></a>
+</li>
+<li>
+<a class="sns-share-btn sns-share-btn-hb" href="https://b.hatena.ne.jp/add?mode=confirm&url=https%3a%2f%2fabemii.github.io%2fposts%2fquantization_calibration%2f&title=TensorRT%20%e3%81%ae%20EntropyCalibrator%20%e3%81%ae%e8%a6%b3%e5%af%9f" target=_blank title=hatena rel=nofollow>B!</a>
+</li>
+<li>
+<a class="sns-share-btn sns-share-btn-po" href="https://getpocket.com/edit?url=https%3a%2f%2fabemii.github.io%2fposts%2fquantization_calibration%2f&title=TensorRT%20%e3%81%ae%20EntropyCalibrator%20%e3%81%ae%e8%a6%b3%e5%af%9f" target=_blank title=pocket rel=nofollow><i class="fab fa-get-pocket"></i></a>
+</li>
+</ul>
+</div>
 <link rel=stylesheet type=text/css href=https://abemii.github.io/css/katex.min.css crossorigin=anonymous>
 <script type=text/javascript src=https://abemii.github.io/js/katex.min.js crossorigin=anonymous></script>
 <script type=text/javascript src=https://abemii.github.io/js/auto-render.min.js onload=renderMathInElement(document.body) crossorigin=anonymous></script>
